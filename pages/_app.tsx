@@ -1,10 +1,13 @@
 import { AppProps } from "next/app";
 import Head from "next/head";
-import { MantineProvider } from "@mantine/core";
+import { Group, MantineProvider, Title } from "@mantine/core";
+import { AppShell, Header } from "@mantine/core";
+import yggLogo from "../public/ygg.svg";
+import Image from "next/image";
+import {Notifications} from "@mantine/notifications";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
-
   return (
     <>
       <Head>
@@ -20,11 +23,24 @@ export default function App(props: AppProps) {
         withGlobalStyles
         withNormalizeCSS
         theme={{
-          /** Put your mantine theme override here */
           colorScheme: "dark",
         }}
       >
-        <Component {...pageProps} />
+        <Notifications />
+        <AppShell
+          padding="md"
+          fixed={false}
+          header={
+            <Header height={60}>
+              <Group sx={{ height: "100%" }} px={20} position="left">
+                <Image src={yggLogo} priority alt={"Logo"} height={50}></Image>
+                <Title size="xl">YggDownloader</Title>
+              </Group>
+            </Header>
+          }
+        >
+          <Component {...pageProps} />
+        </AppShell>
       </MantineProvider>
     </>
   );

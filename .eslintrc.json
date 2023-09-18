@@ -1,3 +1,10 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": ["eslint:recommended"],
+  "rules": {
+    "quotes": ["warn", "double", { "allowTemplateLiterals": true }],
+    "react-hooks/exhaustive-deps": ["off"],
+    "import/no-anonymous-default-export": ["0"],
+    "no-unused-vars": ["warn"],
+    "react/no-unescaped-entities": ["off"]
+  }
 }
