@@ -4,14 +4,13 @@ import YggTorrentApi from "../lib/yggtorrent";
 import MovieDB from "node-themoviedb";
 const getInitialProps = createGetInitialProps();
 
-require('dotenv').config();
-
+require("dotenv").config();
 
 const mdb = new MovieDB("20ec7933568851941b674e9d1948c572", {
   language: "fr-FR",
 });
 
-if(!process.env.YGG_USER || !process.env.YGG_PASS) {
+if (!process.env.YGG_USER || !process.env.YGG_PASS) {
   console.error("Missing YGG_USER or YGG_PASS in .env");
   throw new Error("Missing YGG_USER or YGG_PASS in .env");
 }

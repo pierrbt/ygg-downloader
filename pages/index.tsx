@@ -43,9 +43,12 @@ export default function IndexPage() {
   const handleDownload = async (key: number) => {
     console.log(key);
     try {
-      const data = await fetch(`/api/download/${encodeURIComponent(results[key].downloadUrl)}`, {
-        method: "POST",
-      })
+      const data = await fetch(
+        `/api/download/${encodeURIComponent(results[key].downloadUrl)}`,
+        {
+          method: "POST",
+        },
+      );
 
       if (data.ok) {
         console.log(data);
@@ -53,8 +56,7 @@ export default function IndexPage() {
         throw new Error("Error while downloading the torrent");
       }
       return true;
-
-    } catch(err) {
+    } catch (err) {
       throw err;
     }
   };
@@ -159,15 +161,17 @@ export default function IndexPage() {
                             color="blue"
                             radius="xl"
                             key={id}
-                            style={{ transition: "all 0.2s ease-in-out"}}
+                            style={{ transition: "all 0.2s ease-in-out" }}
                             onClick={async (e) => {
                               e.currentTarget.style.color = "green";
-                              await handleDownload(id).then(() => {
-                                toast.success(`${mediaName} téléchargé !`);
-                              }).catch((err) => {
-                                console.error(err);
-                                toast.error("Erreur lors du téléchargement");
-                              });
+                              await handleDownload(id)
+                                .then(() => {
+                                  toast.success(`${mediaName} téléchargé !`);
+                                })
+                                .catch((err) => {
+                                  console.error(err);
+                                  toast.error("Erreur lors du téléchargement");
+                                });
                             }}
                           >
                             <FaDownload />

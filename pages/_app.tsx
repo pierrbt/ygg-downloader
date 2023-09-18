@@ -4,7 +4,7 @@ import { Group, MantineProvider, Title } from "@mantine/core";
 import { AppShell, Header } from "@mantine/core";
 import yggLogo from "../public/ygg.svg";
 import Image from "next/image";
-import {Notifications} from "@mantine/notifications";
+import { Notifications } from "@mantine/notifications";
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
