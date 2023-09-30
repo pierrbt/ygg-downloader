@@ -22,6 +22,8 @@ export default function IndexPage() {
   const [mediaName, setMediaName] = useState("");
   const [mediaDetails, setMediaDetails] = useState<SearchResponse["details"]>();
   const [results, setResults] = useState<Media[]>([]);
+
+
   const handleChange = async () => {
     const data = (await fetch(`/api/search/${mediaName}`)
       .then((response) => response.json())
@@ -36,8 +38,9 @@ export default function IndexPage() {
     }
   };
 
-  const handleShowDetails = () => {
-    //setMediaDetails(film);
+  const handleShowDetails = (url: string) => {
+    // Open a new tab with the url
+    window.open(url, "_blank");
   };
 
   const handleDownload = async (key: number) => {
@@ -65,12 +68,12 @@ export default function IndexPage() {
     <Stack>
       <Flex
         p="xs"
-        justify="space-between"
+        justify="space-evenly"
         align="center"
         sx={{ width: "100%" }}
       >
         <TextInput
-          size="sm"
+          size="lg"
           sx={{ width: "80%" }}
           placeholder="Entrez le nom d'un film ou d'une série"
           onChange={(element) => {
@@ -81,6 +84,8 @@ export default function IndexPage() {
           }}
         ></TextInput>
         <Button
+          size="lg"
+          sx={{ width: "15%" }}
           onClick={() => {
             handleChange();
           }}
@@ -123,7 +128,7 @@ export default function IndexPage() {
             <Grid gutter="md">
               {results.length === 0 ? (
                 <Flex justify="center" align="center">
-                  <div>Aucun résultat</div>
+                  <Text size="xl" p="lg">Aucun résultat</Text>
                 </Flex>
               ) : (
                 results.map((torrent, id) => (
@@ -152,7 +157,7 @@ export default function IndexPage() {
                             variant="outline"
                             color="blue"
                             radius="xl"
-                            onClick={() => handleShowDetails()}
+                            onClick={() => handleShowDetails(torrent.url)}
                           >
                             <FaInfo />
                           </ActionIcon>

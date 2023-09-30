@@ -40,6 +40,11 @@ export default async function handler(
 
     const movies = moviesResults.data.results as any[];
 
+    for (let i = 0; i < movies.length; i++) {
+      console.log(i,
+        movies[i],)
+    }
+
     if (movies.length > 0) {
       movie.title = movies[0].name || name;
       movie.stars = movies[0].vote_average.toFixed(0);

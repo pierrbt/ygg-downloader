@@ -6,16 +6,32 @@ import yggLogo from "../public/ygg.svg";
 import Image from "next/image";
 import { Notifications } from "@mantine/notifications";
 
+
+export const metadata = {
+  title: "YggDownloader",
+  description: "Download torrents from YggTorrent",
+}
+
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
   return (
     <>
       <Head>
-        <title>Page title</title>
+        <title>{metadata.title}</title>
         <link rel="shortcut icon" href="/favicon.svg" />
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
+        <meta
+          property="og:title"
+          content={metadata.title}
+          key="ogtitle"
+        />
+        <meta
+          property="og:description"
+          content={metadata.description}
+          key="ogdesc"
         />
       </Head>
 
@@ -31,10 +47,10 @@ export default function App(props: AppProps) {
           padding="md"
           fixed={false}
           header={
-            <Header height={60}>
+            <Header height={80}>
               <Group sx={{ height: "100%" }} px={20} position="left">
-                <Image src={yggLogo} priority alt={"Logo"} height={50}></Image>
-                <Title size="xl">YggDownloader</Title>
+                <Image src={yggLogo} priority alt={"Logo"} height={60}></Image>
+                <Title size="x-large">YggDownloader</Title>
               </Group>
             </Header>
           }

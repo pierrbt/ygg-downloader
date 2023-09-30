@@ -32,7 +32,7 @@ class YggTorrentApi {
   private searchHost: string;
   private username: string;
   private password: string;
-  private cookie: string;
+  public cookie: string;
 
   constructor(config: YggProps) {
     this.host = config.host;
