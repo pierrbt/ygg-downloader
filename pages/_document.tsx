@@ -15,8 +15,8 @@ if (!process.env.YGG_USER || !process.env.YGG_PASS) {
   throw new Error("Missing YGG_USER or YGG_PASS in .env");
 }
 const ygg = new YggTorrentApi({
-  host: "https://www.yggtorrent.wtf",
-  searchHost: "https://www3.yggtorrent.wtf",
+  host: process.env.YGG_HOST as string,
+  searchHost: process.env.YGG_SEARCH as string,
   username: process.env.YGG_USER as string,
   password: process.env.YGG_PASS as string,
 });

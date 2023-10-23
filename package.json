@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3112",
     "lint": "next lint",
     "format": "prettier --write --end-of-line=auto **/*.ts*"
   },
@@ -20,12 +20,10 @@
     "dotenv": "^16.3.1",
     "freebox": "^1.3.4",
     "next": "13.2.3",
-    "node-fetch": "^3.3.2",
     "node-themoviedb": "^0.2.8",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.10.1",
-    "samba-client": "^7.2.0",
     "uuid": "^9.0.1",
     "yggtorrent-api": "^1.0.4"
   },

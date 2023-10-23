@@ -23,7 +23,6 @@ export default function IndexPage() {
   const [mediaDetails, setMediaDetails] = useState<SearchResponse["details"]>();
   const [results, setResults] = useState<Media[]>([]);
 
-
   const handleChange = async () => {
     const data = (await fetch(`/api/search/${mediaName}`)
       .then((response) => response.json())
@@ -66,12 +65,7 @@ export default function IndexPage() {
 
   return (
     <Stack>
-      <Flex
-        p="xs"
-        justify="space-evenly"
-        align="center"
-        sx={{ width: "100%" }}
-      >
+      <Flex p="xs" justify="space-evenly" align="center" sx={{ width: "100%" }}>
         <TextInput
           size="lg"
           sx={{ width: "80%" }}
@@ -128,7 +122,9 @@ export default function IndexPage() {
             <Grid gutter="md">
               {results.length === 0 ? (
                 <Flex justify="center" align="center">
-                  <Text size="xl" p="lg">Aucun résultat</Text>
+                  <Text size="xl" p="lg">
+                    Aucun résultat
+                  </Text>
                 </Flex>
               ) : (
                 results.map((torrent, id) => (

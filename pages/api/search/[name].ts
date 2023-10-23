@@ -41,8 +41,7 @@ export default async function handler(
     const movies = moviesResults.data.results as any[];
 
     for (let i = 0; i < movies.length; i++) {
-      console.log(i,
-        movies[i],)
+      console.log(i, movies[i]);
     }
 
     if (movies.length > 0) {

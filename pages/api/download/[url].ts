@@ -3,9 +3,7 @@ import { ygg } from "../../_document";
 import { writeFile } from "fs/promises";
 import { v4 as uuidv4 } from "uuid";
 
-//import nodefetch from 'node-fetch';
-
-const fs = require("fs");
+require("dotenv").config();
 
 export interface SearchResponse {
   ok: boolean;
@@ -20,6 +18,8 @@ export default async function handler(
     const { url } = req.query as { url: string };
     console.log(url);
 
+    if (!url.startsWith((process.env.YGG_SEARCH as string) + "/"))
+      throw new Error("Invalid url");
 
     const response = (await ygg.download(url)) as Response;
     const buffer = await response.arrayBuffer();

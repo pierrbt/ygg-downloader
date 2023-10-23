@@ -6,11 +6,10 @@ import yggLogo from "../public/ygg.svg";
 import Image from "next/image";
 import { Notifications } from "@mantine/notifications";
 
-
 export const metadata = {
   title: "YggDownloader",
   description: "Download torrents from YggTorrent",
-}
+};
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
@@ -23,11 +22,7 @@ export default function App(props: AppProps) {
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
-        <meta
-          property="og:title"
-          content={metadata.title}
-          key="ogtitle"
-        />
+        <meta property="og:title" content={metadata.title} key="ogtitle" />
         <meta
           property="og:description"
           content={metadata.description}
