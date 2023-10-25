@@ -19,23 +19,21 @@ export interface Media {
 }
 
 const fetchHeaders = {
-  headers: {
-    "User-Agent":
-      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36",
-    //"X-Requested-With": "XMLHttpRequest",
-    "Content-Type": "application/x-www-form-urlencoded",
-    "Accept-Language": "fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7",
-    "Accept-Encoding": "gzip, deflate, br",
-    Accept:
-      "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-    "Cache-Control": "no-cache",
-    Pragma: "no-cache",
-    "Sec-Fetch-Dest": "document",
-    "Sec-Fetch-Mode": "navigate",
-    "Sec-Fetch-Site": "same-origin",
-    "Sec-Fetch-User": "?1",
-    "Upgrade-Insecure-Requests": "1",
-  },
+  "User-Agent":
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36",
+  //"X-Requested-With": "XMLHttpRequest",
+  "Content-Type": "application/x-www-form-urlencoded",
+  "Accept-Language": "fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7",
+  "Accept-Encoding": "gzip, deflate, br",
+  Accept:
+    "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+  "Cache-Control": "no-cache",
+  Pragma: "no-cache",
+  "Sec-Fetch-Dest": "document",
+  "Sec-Fetch-Mode": "navigate",
+  "Sec-Fetch-Site": "same-origin",
+  "Sec-Fetch-User": "?1",
+  "Upgrade-Insecure-Requests": "1",
 };
 
 class YggTorrentApi {
@@ -58,7 +56,7 @@ class YggTorrentApi {
       const loginResponse = await fetch(`${this.host}/user/login`, {
         method: "POST",
         headers: {
-          ...fetchHeaders.headers,
+          ...fetchHeaders,
         },
         redirect: "follow",
         body: new URLSearchParams({
@@ -90,11 +88,12 @@ class YggTorrentApi {
       await this.login();
       const response = await fetch(`${url}`, {
         method: "GET",
-        ...fetchHeaders,
+
         redirect: "follow",
         credentials: "include",
         headers: {
           Cookie: this.cookie,
+          ...fetchHeaders,
         },
       });
 
@@ -107,26 +106,24 @@ class YggTorrentApi {
 
   async search(name: string): Promise<Array<Media>> {
     try {
-      console.log(
-        `${this.searchHost}/engine/search?name=${encodeURIComponent(
-          name,
-        )}&description=&file=&uploader=&category=2145&sub_category=all&do=search&order=desc&sort=completed`,
-      );
-
       const response = await fetch(
         `${this.searchHost}/engine/search?name=${encodeURIComponent(
           name,
         )}&description=&file=&uploader=&category=2145&sub_category=all&do=search&order=desc&sort=completed`,
         {
           method: "GET",
-          ...fetchHeaders,
+          headers: {
+            ...fetchHeaders,
+          },
           redirect: "follow",
         },
       );
 
       if (!response.ok) {
-        console.log("Status code ", response.status);
-        throw new Error(`Error while searching: ${response.statusText}`);
+        throw {
+          message: `Error while searching: ${response.statusText}`,
+          status: response.status,
+        };
       }
 
       const body = await response.text();
@@ -151,9 +148,10 @@ class YggTorrentApi {
       });
 
       return results;
-    } catch (err) {
-      console.error(err);
-      return [];
+    } catch (err: any) {
+      console.log(err);
+      const status = err.status || 500;
+      return [status];
     }
   }
 }

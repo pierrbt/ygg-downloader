@@ -6,6 +6,7 @@ export interface SearchResponse {
   ok: boolean;
   message: string;
   results?: Media[];
+  allowed?: boolean;
   details?: {
     title: string;
     stars: number;
@@ -47,9 +48,21 @@ export default async function handler(
       movie.description = movies[0].overview;
     }
 
+    const allowed = !(
+      yggResults.length === 1 &&
+      typeof yggResults[0] === "number" &&
+      yggResults[0] === 403
+    );
+
     res
       .status(200)
-      .json({ ok: true, message: "ok", results: yggResults, details: movie });
+      .json({
+        ok: true,
+        message: "ok",
+        results: allowed ? yggResults : [],
+        details: movie,
+        allowed: allowed,
+      });
   } catch (e: any) {
     res.status(500).json({ ok: false, message: e.message });
   }
