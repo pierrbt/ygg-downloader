@@ -1,7 +1,6 @@
 "use server";
 
 import { load } from "cheerio";
-import { log } from "util";
 
 interface YggProps {
   host: string;
@@ -22,8 +21,20 @@ export interface Media {
 const fetchHeaders = {
   headers: {
     "User-Agent":
-      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36",
-    "X-Requested-With": "XMLHttpRequest",
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36",
+    //"X-Requested-With": "XMLHttpRequest",
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Accept-Language": "fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7",
+    "Accept-Encoding": "gzip, deflate, br",
+    Accept:
+      "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+    "Cache-Control": "no-cache",
+    Pragma: "no-cache",
+    "Sec-Fetch-Dest": "document",
+    "Sec-Fetch-Mode": "navigate",
+    "Sec-Fetch-Site": "same-origin",
+    "Sec-Fetch-User": "?1",
+    "Upgrade-Insecure-Requests": "1",
   },
 };
 
@@ -67,7 +78,6 @@ class YggTorrentApi {
           this.cookie = value;
         }
       });
-      console.log(body);
       return body;
     } catch (error: any) {
       console.log(error);
@@ -102,6 +112,7 @@ class YggTorrentApi {
           name,
         )}&description=&file=&uploader=&category=2145&sub_category=all&do=search&order=desc&sort=completed`,
       );
+
       const response = await fetch(
         `${this.searchHost}/engine/search?name=${encodeURIComponent(
           name,
@@ -114,6 +125,7 @@ class YggTorrentApi {
       );
 
       if (!response.ok) {
+        console.log("Status code ", response.status);
         throw new Error(`Error while searching: ${response.statusText}`);
       }
 
