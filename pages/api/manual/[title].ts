@@ -9,7 +9,9 @@ export default async function handler(
 ) {
   try {
     const { title } = req.query as { title: string };
-    const filePath = join(process.cwd(), "public", "manual.json");
+    const filePath = join(__dirname.substring(0, __dirname.indexOf(".next")), "public", "manual.json");
+    console.log(filePath)
+
     if (!existsSync(filePath)) {
       await writeFile(filePath, JSON.stringify([title]));
     } else {

@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import {NextApiRequest, NextApiResponse} from "next";
 import { join } from "path";
 import { readFile, writeFile } from "fs/promises";
 import { existsSync } from "fs";
@@ -8,8 +8,8 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   try {
-    const { title } = req.query as { title: string };
-    const filePath = join(process.cwd(), "public", "manual.json");
+    const filePath = join(__dirname.substring(0, __dirname.indexOf(".next")), "public", "manual.json");
+    console.log(filePath)
     if (!existsSync(filePath)) {
       res.status(200).json({ ok: true, message: "ok", results: [] });
     } else {
