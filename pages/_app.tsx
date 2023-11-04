@@ -28,7 +28,7 @@ export default function App(props: AppProps) {
           content={metadata.description}
           key="ogdesc"
         />
-        <script defer data-domain="ygg.veagle.fr" src="https://stats.veagle.fr/js/script.js"></script>
+        <script defer data-domain="ygg.veagle.fr" src="https://acabou.veagle.fr/js/script.js"></script>
 
       </Head>
 
